@@ -1,0 +1,31 @@
+//- modal nova receita, autor automaticamente preenchido
+//- modal detalhes receita, aparecer editar e deletar para donos de receitas
+//- modelo de receita, acrescentar avaliacao(estrelas, usuarios), corrigir nomes atributos
+//- modal detalhes receita, avaliacao dos usuarios
+//- logica avaliacao
+//- itens paginas principais, quantidade de usuarios que avaliaram
+//- itens paginas principais, nao mudar estrelas
+//- cadastro: estado com itens existentes
+//- modal detalhes receita, comentarios para receita
+//- modal detalhes receita, organizar microdata
+//- modal detalhes receita, imprimir e exportar
+//- modal nova receita, várias imagens
+//- modal detalhes receita, pegar imagem do storage
+//- modal detalhes receita, várias imagens
+//- itens paginas principais, pegar imagem storage
+//- arrumar display de datas
+//- modal nova receita, unidade ingredientes
+//- modal detalhes receita, suporte video
+//- feedbacks login
+
+- formularios, acrescentar validaçao de entradas
+- receitas mais assistidas, pegar videos do storage
+
+
+
+- modal detalhes receita, ajax para atualizar comentarios e avaliacao
+- modal detalhes receita, deletar e editar receita
+- modal detalhes receita, deletar comentario proprio autor
+- itens paginas principais, autor
+- busca
+- itens paginas principais, suporte video (Talvez);

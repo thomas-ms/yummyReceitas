@@ -1,0 +1,143 @@
+body > .grid-login {
+    height: 100%;
+}
+
+.image-login {
+    margin-top: -100px;
+}
+
+.column-login {
+    max-width: 450px;
+}
+
+.food.icon {
+    color: #00b5ad;
+}
+
+#logo {
+    color: #00b5ad;
+}
+
+#novaRec, .ui.primary.button.floated.right {
+    background-color: #00b5ad;
+}
+
+.button-icon.mini.teal.right.floated {
+    font-size: 1rem;
+    padding: 0.5em 0.5em;
+    margin-top: 4px;
+}
+
+.ui.menu .item-menu.item, h2, h3, p.item a.item, .ui.inverted.link.list .item-footer, .ui.form div.field > label,
+.modal .header.modal-header, .grid.header .column .modal-header, .description .header, .ui.items > .item > .content > a.header, .modal label{
+    color: #00b5ad;
+}
+
+.row-mgbt {
+    margin-bottom: 1rem;
+}
+
+.ui.grid + .grid.mgwrng {
+    margin-top: -1rem;
+}
+
+.meta {
+	color: rgba(0,0,0,.6);
+}
+
+#section-principal {
+    margin-top:1%;
+}
+
+#scrolling-seg-principal {
+    height: 400px; 
+    overflow-y:auto; 
+    overflow-x:hidden; 
+}
+
+p.avaliacao {
+    padding-right:5px;
+}
+
+div.videos {
+    height: 464px; 
+    overflow-y:auto; 
+    overflow-x:hidden;
+}
+
+.ui.vertical.segment.footer {
+    margin-top: 2%;
+}
+
+#segment-form-cadastro {
+    margin: 4rem 0;
+    width:50%;
+    padding:2rem;
+}
+
+#segment-form-novaRec {
+    margin: 2rem 0; 
+    width:80%; 
+    padding:2rem;
+}
+
+#modal-detalhes {
+    top: 3000px; 
+    display: block !important;
+}
+
+.ui.header .modal-header {
+    font-size: 24pt;
+}
+
+.ui.accordion.field .row .column label {
+    color: #00b5ad;
+}
+
+.ui.accordion.field .row .column input {
+    margin-top: 4px;
+}
+
+.ui.accordion.field .row .column .buttons {
+    margin-top: 22px;
+}
+
+.description p.ingrediente {
+    margin:0;
+}
+
+.ui.image.image-detalhes img {
+    max-width: 270px;
+}
+
+@media only screen and (max-width: 767px){
+    .column.column-login{
+        margin-top:100px;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+#autorReceita {
+    color: rgba(0,0,0,.3);
+}
+
+.header.item#logo {
+    cursor: pointer;
+}
+
+.ui.large.star.rating {
+    padding-left: 0;
+}
+
+#textComment {
+    height: 75px;
+    margin-top: 15px;
+}
+
+hr {
+    width: 80%;
+    color: rgba(0,0,0, 0.1);
+}

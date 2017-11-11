@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <link rel="stylesheet" href="./css/externo.css" ‌​>
+  <title>Login Yummy Receitas</title>
+</head>
+
+<body>
+  <header id="menuLogado" class="">
+    <nav class="ui menu stackable">
+      <header class="header item" id="logo">
+        <i class="food icon"></i>
+        <strong>YUMMY!</strong>
+      </header>
+      <a class="item active item-menu" id="logoutBtn">Logado(a) como: <span id="nomeLogado"></span></a>
+      <div class="item">
+        <button class="ui primary button" id="novaRec">Criar nova receita</button>
+      </div>
+      <div class="right menu">
+        <div class="item">
+          <div class="ui icon input">
+            <input placeholder="Buscar..." type="text">
+            <i class="search icon"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <header id="menuDeslogado" class="">
+    <nav class="ui menu stackable">
+      <header class="header item" id="logo">
+        <i class="food icon"></i>
+        <strong>YUMMY!</strong>
+      </header>
+      <a class="item item-menu" href="inicial.html">Home</a>
+      <a class="item item-menu" href="login.html">Login</a>
+      <a class="item item-menu" href="cadastro.html">Registrar</a>
+    </nav>
+  </header>
+
+  <section class="ui middle aligned center aligned grid grid-login">
+    <div class="column column-login">
+      <h2 class="ui teal image header image-login">
+        <i class="food icon"></i>
+        <div class="content">
+          Faça login na sua conta!
+        </div>
+      </h2>
+      <div class="ui large form login">
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="email" placeholder="E-mail" id="fieldEmail">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password" placeholder="Senha" id="fieldSenha">
+            </div>
+          </div>
+          <button class="ui fluid large teal submit button" type="button" id="btnLogin">Login</button>
+        </div>
+
+        <div class="ui error message"></div>
+
+      </div>
+
+      <div class="ui message">
+        Novo no site? <a href="#">Registre-se!</a>
+      </div>
+    </div>
+  </section>
+
+  //<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+  <script src="./js/externo.js"></script>
+</body>
+
+</html>

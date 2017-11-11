@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <link rel="stylesheet" href="./css/externo.css" ‌​>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <title>YUMMY Receitas</title>
+    <style type="text/css">
+        .masthead.segment {
+            min-height: 700px;
+            padding: 1em 0em;
+        }
+
+
+        .masthead h1.ui.header {
+            margin-top: 3em;
+            margin-bottom: 0em;
+            font-size: 4em;
+            font-weight: normal;
+        }
+
+        .masthead h2 {
+            font-size: 1.7em;
+            font-weight: normal;
+        }
+
+        /* .ui.inverted.vertical.masthead {
+            background-color: white;
+        } */
+
+        @media only screen and (max-width: 700px) {
+            .ui.fixed.menu {
+                display: none !important;
+            }
+            .masthead.segment {
+                min-height: 350px;
+            }
+            .masthead h1.ui.header {
+                font-size: 2em;
+                margin-top: 1.5em;
+            }
+            .masthead h2 {
+                margin-top: 0.5em;
+                font-size: 1.5em;
+            }
+        }
+
+
+        /* html,
+        body {
+            background-color: rgb(255, 255, 255);
+        } */
+
+        #wrapper {
+            margin-top: 50px;
+        }
+
+        #header {
+            color: #00b5ad;
+            margin-top: 2em;
+        }
+
+        #iconHeaderBig {
+            display: inline;
+            font-size: 1em;
+            padding-bottom: 20px;
+            color: #00b5ad;
+        }
+
+        #homeButton {
+            background-color: #00b5ad;
+        }
+    </style>
+
+    </head>
+
+    <body>
+
+        <header id="menuLogado" class="">
+            <nav class="ui menu stackable">
+                <header class="header item" id="logo">
+                    <i class="food icon"></i>
+                    <strong>YUMMY!</strong>
+                </header>
+                <a class="item active item-menu" id="logoutBtn">Logado(a) como: <span id="nomeLogado"></span></a>
+                <div class="item">
+                    <button class="ui primary button" id="novaRec">Criar nova receita</button>
+                </div>
+                <div class="right menu">
+                    <div class="item">
+                        <div class="ui icon input">
+                            <input placeholder="Buscar..." type="text">
+                            <i class="search icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <header id="menuDeslogado" class="">
+            <nav class="ui menu stackable">
+                <header class="header item" id="logo">
+                    <i class="food icon"></i>
+                    <strong>YUMMY!</strong>
+                </header>
+                <a class="item item-menu" href="inicial.html">Home</a>
+                <a class="item item-menu" href="login.html">Login</a>
+                <a class="item item-menu" href="cadastro.html">Registrar</a>
+            </nav>
+        </header>
+
+        <div id="wrapper" class="pusher">
+            <div class="ui vertical masthead center aligned segment">
+                <div class="ui text container">
+                    <h1 id="header" onerror="" class="ui inverted header">
+                        <i class="food icon" id="iconHeaderBig"></i> YU<span id="spanTitulo"></span>MMY!
+                    </h1>
+                    <h2 style="margin-bottom : 20px; margin-top: 0">As receitas mais deliciosas em um só lugar!</h2>
+                    <a href="inicial.html" id="homeButton" class="ui huge primary button">Conheça agora! <i class="right arrow icon"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <script src="./js/externo.js"></script>
+    </body>
+
+    </html>
