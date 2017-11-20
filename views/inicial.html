@@ -357,29 +357,34 @@
     <script>
         $(function () {
             firebase.database().ref('categorias/Carnes').once('value').then(function (snapshot) {
-                if (snapshot.val())
+                if (snapshot.val()){
                     var chavesCat = Object.keys(snapshot.val()).slice(-3);
                     criarItems(chavesCat, 'itemsCarnes');
+                }                    
             });
             firebase.database().ref('categorias/Massas').once('value').then(function (snapshot) {
-                if (snapshot.val())
+                if (snapshot.val()) {
                     var chavesCat = Object.keys(snapshot.val()).slice(-3);
                     criarItems(chavesCat, 'itemsMassas');
+                }
             });
             firebase.database().ref('categorias/Sobremesas').once('value').then(function (snapshot) {
-                if (snapshot.val())
+                if (snapshot.val()) {
                     var chavesCat = Object.keys(snapshot.val()).slice(-3);
-                    criarItems(ChavesCat, 'itemsSobremesas');
+                    criarItems(chavesCat, 'itemsSobremesas');
+                }
             });
             firebase.database().ref('categorias/Culinárias Típicas').once('value').then(function (snapshot) {
-                if (snapshot.val())
+                if (snapshot.val()) {
                     var chavesCat = Object.keys(snapshot.val()).slice(-3);
-                    criarItems(ChavesCat, 'itemsCulTipicas');
+                    criarItems(chavesCat, 'itemsCulTipicas');
+                }
             });
             firebase.database().ref('categorias/Drinks').once('value').then(function (snapshot) {
-                if (snapshot.val())
+                if (snapshot.val()) {
                     var chavesCat = Object.keys(snapshot.val()).slice(-3);
-                    criarItems(ChavesCat, 'itemsDrinks');
+                    criarItems(chavesCat, 'itemsDrinks');
+                }
             });
         });
 
