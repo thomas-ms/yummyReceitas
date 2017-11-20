@@ -357,10 +357,10 @@
     <script>
         $(function () {
             firebase.database().ref('categorias/Carnes').once('value').then(function (snapshot) {
-                if (snapshot.val()){
+                if (snapshot.val()) {
                     var chavesCat = Object.keys(snapshot.val()).slice(-3);
                     criarItems(chavesCat, 'itemsCarnes');
-                }                    
+                }
             });
             firebase.database().ref('categorias/Massas').once('value').then(function (snapshot) {
                 if (snapshot.val()) {
