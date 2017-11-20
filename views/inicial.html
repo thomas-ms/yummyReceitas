@@ -6,53 +6,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-    <link rel="stylesheet" href="./css/externo.css" ‌​>
-    <title>Yummy Receitas por Categoria</title>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="../css/externo.css" ‌​>
+    <title>Página Inicial YUMMY Receitas</title>
 </head>
 
 <body>
-    <header>
+
+    <header id="menuLogado" class="hide">
         <nav class="ui menu stackable">
             <header class="header item" id="logo">
                 <i class="food icon"></i>
-                <strong>YUMMY</strong>
+                <strong>YUMMY!</strong>
             </header>
-            <a class="item active item-menu">Logado(a) como: Thomás</a>
+            <div class="item item-menu" id="">Logado(a) como: <span id="nomeLogado"></span></div>
             <div class="item">
-                <button class="ui primary button" id="novaRec">Criar nova receita</button>
+                <button class="ui primary button teal" id="logoutBtn">Logout</button>
             </div>
             <div class="right menu">
                 <div class="item">
-                    <div class="ui icon input">
-                        <input placeholder="Buscar" type="text">
-                        <i class="search icon"></i>
+                    <button class="ui primary button" id="novaRec">Criar nova receita</button>
+                </div>
+                <div class="item">
+                    <div class="ui search" id="buscaReceitas">
+                        <div class="ui icon input">
+                            <input id="buscaReceitasInput" class="prompt" type="text" placeholder="Buscar receitas...">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
+    <header id="menuDeslogado" class="hide">
+        <nav class="ui menu stackable">
+            <header class="header item" id="logo">
+                <i class="food icon"></i>
+                <strong>YUMMY!</strong>
+            </header>
+            <a class="item item-menu" href="../landing_page.html">Home</a>
+            <a class="item item-menu" href="./login.html">Login</a>
+            <a class="item item-menu" href="./cadastro.html">Registrar</a>
+        </nav>
+    </header>
+
     <section class="ui grid container stackable" id="section-principal">
         <!-- CONTEÚDO -->
+        <section class="sixteen wide column">
+            <div class="ui positive message hidden">
+                <i class="close icon"></i>
+                <div class="header">
+                    Login efetuado com sucesso!
+                </div>
+                <p>Seja bem vindo(a) <b id='nomeUserMssg'></b>!</p>
+            </div>
+        </section>
+
         <section class="eleven wide column">
             <!-- CONTEÚDO PRINCIPAL -->
+
             <nav class="ui pointing six item menu">
-                <a class="item item-menu" href="inicial.html">
+                <a class="active item item-menu">
                         Home
                     </a>
-                <a class="active item item-menu">
+                <a class="item item-menu" href="./carnes.html">
                         Carnes
                     </a>
-                <a class="item item-menu">
+                <a class="item item-menu" href="./massas.html">
                         Massas
                     </a>
-                <a class="item item-menu">
+                <a class="item item-menu" href="./sobremesas.html">
                         Sobremesas
                     </a>
-                <a class="item item-menu">
+                <a class="item item-menu" href="./culTip.html">
                         Culinárias Típicas
                     </a>
-                <a class="item item-menu">
+                <a class="item item-menu" href="./drinks.html">
                         Drinks
                     </a>
             </nav>
@@ -62,25 +93,71 @@
                     <h2>Receitas mais recentes</h2>
                 </header>
 
-                <div class="ui attached segment" id="scrolling-seg-principal">
-                    <div class="ui divided items" id='itemsPagCarnes'>
+                <section class="ui attached segment" id="scrolling-seg-principal">
+                    <header class="ui top attached secondary segment center aligned">
+                        Carnes
+                    </header>
 
+                    <div class="ui attached segment">
+                        <div class="ui divided items" id="itemsCarnes">
+
+                        </div>
                     </div>
-                </div>
+
+                    <header class="ui attached secondary segment center aligned">
+                        Massas
+                    </header>
+
+                    <div class="ui attached segment">
+                        <div class="ui divided items" id="itemsMassas">
+
+                        </div>
+                    </div>
+
+                    <header class="ui attached secondary segment center aligned">
+                        Sobremesas
+                    </header>
+
+                    <div class="ui attached segment">
+                        <div class="ui divided items" id="itemsSobremesas">
+
+                        </div>
+                    </div>
+
+                    <header class="ui attached secondary segment center aligned">
+                        Culinárias Típicas
+                    </header>
+
+                    <div class="ui attached segment">
+                        <div class="ui divided items" id="itemsCulTipicas">
+
+                        </div>
+                    </div>
+
+                    <header class="ui attached secondary segment center aligned">
+                        Drinks
+                    </header>
+
+                    <div class="ui attached segment">
+                        <div class="ui divided items" id="itemsDrinks">
+
+                        </div>
+                    </div>
+                </section>
+
             </section>
         </section>
 
         <aside class="five wide column center aligned">
             <!-- CONTEÚDO RELACIONADO -->
             <div class="ui attached segments">
-                <header class="ui top attached segment center aligned">
-                    <h3>Receitas mais assistidas</h3>
-                </header>
 
-                <div class="ui attached segment videos">
-                    <iframe width="300" height="200" src="https://www.youtube.com/embed/D7d_i3E6GRs" frameborder="0" allowfullscreen></iframe>
-                    <iframe width="300" height="200" src="https://www.youtube.com/embed/TbXpgumVpsk" frameborder="0" allowfullscreen></iframe>
-                    <iframe width="300" height="200" src="https://www.youtube.com/embed/TbXpgumVpsk" frameborder="0" allowfullscreen></iframe>
+                <div class="ui top attached segment center aligned">
+                    <h3>Últimos vídeos adicionados</h3>
+                </div>
+
+                <div class="ui attached segment videos" id="videoSeg">
+
                 </div>
             </div>
         </aside>
@@ -100,9 +177,9 @@
                 </section>
                 <section class="seven wide column">
                     <h4 class="ui inverted header">Links interessantes</h4>
-                    <p class="item"><a class="item" href="http://www.icouldkillfordessert.com.br/">ICKFD</a></p>
-                    <p class="item"><a class="item" href="https://www.youtube.com/user/nocedanielle/featured">Dani Noce</a></p>
-                    <p class="item"><a class="item" href="https://www.tastemade.com.br/receitas">Tastemade</a></p>
+                    <p class="item"><a class="item" href="http://www.icouldkillfordessert.com.br/">ICKFD</a>
+                        <p class="item"><a class="item" href="https://www.youtube.com/user/nocedanielle/featured">Dani Noce</a>
+                            <p class="item"><a class="item" href="https://www.tastemade.com.br/receitas">Tastemade</a>
                 </section>
             </div>
             <div class="ui inverted section divider"></div>
@@ -111,7 +188,7 @@
                     <i class="large food icon"></i>
                 </div>
                 <div class="ui horizontal inverted small divided link list">
-                    <p class="item item-footer"><strong>YUMMY</strong></p>
+                    <p class="item item-footer"><strong>YUMMY!</strong></p>
                 </div>
             </section>
         </div>
@@ -125,14 +202,14 @@
         <section class="ui center aligned grid">
             <div class="ui segment" id="segment-form-novaRec">
                 <div class="content">
-                    <form class="ui form">
+                    <form class="ui form novaRec">
                         <div class="field">
                             <label>Autor</label>
-                            <input type="text" placeholder="Autor da receita" />
+                            <p id='autorReceita'></p>
                         </div>
                         <div class="field">
                             <label>Nome da receita</label>
-                            <input type="text" placeholder="Nome da receita" id="nomeReceita" />
+                            <input type="text" placeholder="Nome da receita" id="nomeReceita" maxlength="50" />
                         </div>
                         <div class="field">
                             <label>Descrição</label>
@@ -144,13 +221,13 @@
                                 <div class="column">
                                     <div class="field">
                                         <label>Imagens</label>
-                                        <input id="imagemReceita" type="file" />
+                                        <input id="imagemReceita" type="file" multiple/>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="field">
                                         <label>Vídeo</label>
-                                        <input id="videoReceita" type="file" />
+                                        <input id="videoReceita" type="text" placeholder='Link para o video' />
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +250,7 @@
                                 <div class="column">
                                     <div class="field">
                                         <label>Tempo de preparo</label>
-                                        <input id="tempoReceita" type="text" placeholder="Tempo de preparo em min" />
+                                        <input id="tempoReceita" type="text" placeholder="Tempo de preparo em minutos" />
                                     </div>
                                 </div>
                                 <div class="column">
@@ -203,7 +280,7 @@
                                 <div class="column">
                                     <div class="field">
                                         <label>Porções</label>
-                                        <input id="porcoesReceita" type="text" placeholder="Número de porções" />
+                                        <input id="porcoesReceita" type="text" placeholder="Serve quantas pessoas?" />
                                     </div>
                                 </div>
                             </div>
@@ -235,6 +312,10 @@
                                             <input placeholder="Quantidade" class="" type="text" id="quantIngr">
                                         </div>
                                         <div class="column">
+                                            <label class="">Unidade</label>
+                                            <input placeholder="Unidade" class="" type="text" id="unidadeIngr">
+                                        </div>
+                                        <div class="column right floated">
                                             <div class="ui tiny right floated buttons">
                                                 <button class="ui button" id="cancelaNovoIngr" type="button">Cancelar</button>
                                                 <div class="or" data-text="ou"></div>
@@ -266,19 +347,131 @@
 
     </section>
 
-
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-    <script src="./js/externo.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.glide/1.0.6/jquery.glide.min.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="../js/externo.js"></script>
     <script>
         $(function () {
             firebase.database().ref('categorias/Carnes').once('value').then(function (snapshot) {
-                criarItems(snapshot, 'itemsPagCarnes');
+                if (snapshot.val())
+                    var chavesCat = Object.keys(snapshot.val()).slice(-3);
+                    criarItems(chavesCat, 'itemsCarnes');
+            });
+            firebase.database().ref('categorias/Massas').once('value').then(function (snapshot) {
+                if (snapshot.val())
+                    var chavesCat = Object.keys(snapshot.val()).slice(-3);
+                    criarItems(chavesCat, 'itemsMassas');
+            });
+            firebase.database().ref('categorias/Sobremesas').once('value').then(function (snapshot) {
+                if (snapshot.val())
+                    var chavesCat = Object.keys(snapshot.val()).slice(-3);
+                    criarItems(ChavesCat, 'itemsSobremesas');
+            });
+            firebase.database().ref('categorias/Culinárias Típicas').once('value').then(function (snapshot) {
+                if (snapshot.val())
+                    var chavesCat = Object.keys(snapshot.val()).slice(-3);
+                    criarItems(ChavesCat, 'itemsCulTipicas');
+            });
+            firebase.database().ref('categorias/Drinks').once('value').then(function (snapshot) {
+                if (snapshot.val())
+                    var chavesCat = Object.keys(snapshot.val()).slice(-3);
+                    criarItems(ChavesCat, 'itemsDrinks');
             });
         });
+
+        $('.form.novaRec').form({
+            on: 'blur',
+            inline: 'true',
+            fields: {
+                nomeReceita: {
+                    identifier: 'nomeReceita',
+                    rules: [
+                        {
+                            type: 'maxLength[50]',
+                            prompt: 'O nome da receita deve conter menos de 50 caracteres'
+                        },
+                        {
+                            type: 'regExp[/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\(\)!.,?:;# ]+$/]',
+                            prompt: 'O nome da receita deve conter apenas caracteres válidos de texto'
+                        }
+                    ]
+                },
+                descricaoReceita: {
+                    identifier: 'descricaoReceita',
+                    rules: [
+                        {
+                            type: 'maxLength[300]',
+                            prompt: 'A descrição da receita deve conter menos de 300 caracteres'
+                        },
+                        {
+                            type: 'regExp[/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\(\)!.,?:;# ]+$/]',
+                            prompt: 'A descrição da receita deve conter apenas caracteres válidos de texto'
+                        }
+                    ]
+                },
+                tempoReceita: {
+                    identifier: 'tempoReceita',
+                    rules: [
+                        {
+                            type: 'regExp[/^[0-9]*$/]',
+                            prompt: 'Forneça um número inteiro'
+                        }
+                    ]
+                },
+                instrucoesReceita: {
+                    identifier: 'instrucoesReceita',
+                    rules: [
+                        {
+                            type: 'maxLength[800]',
+                            prompt: 'As instruções da receita devem conter menos de 800 caracteres'
+                        },
+                        {
+                            type: 'regExp[/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\(\)!.,?:;# ]+$/]',
+                            prompt: 'As instruções da receita devem conter apenas caracteres válidos de texto'
+                        }
+                    ]
+                },
+                porcoesReceita: {
+                    identifier: 'porcoesReceita',
+                    rules: [
+                        {
+                            type: 'regExp[/^[0-9]*$/]',
+                            prompt: 'Forneça um número inteiro'
+                        }
+                    ]
+                },
+                nutricionalReceita: {
+                    identifier: 'nutricionalReceita',
+                    rules: [
+                        {
+                            type: 'regExp[/^[0-9]*$/]',
+                            prompt: 'Forneça um número inteiro'
+                        }
+                    ]
+                },
+            },
+        });
+
+        if (localStorage.message) {
+            $('.ui.positive.message').removeClass('hidden');
+            localStorage.removeItem('message');
+            setTimeout(function () {
+                $('.ui.positive.message')
+                    .closest('.message')
+                    .transition('fade');
+                setTimeout(function () {
+                    $('.ui.positive.message').addClass('hidden');
+                }, 1000)
+            }, 10000)
+        }
+
+        criarVideos();
     </script>
+
 </body>
 
 </html>

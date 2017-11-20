@@ -16,16 +16,18 @@
 //- arrumar display de datas
 //- modal nova receita, unidade ingredientes
 //- modal detalhes receita, suporte video
+//- formularios, acrescentar validaçao de entradas (transformacoes dos dados)
 //- feedbacks login
+//- receitas mais assistidas, pegar videos do storage
+//- mudar layout menu
+//- itens paginas principais, autor
+//- lingua do calendario
+//- busca
+//- modal detalhes receita, unidade ingrediente
+//- modal detalhes receita, pegar nome do autor
+//- nova receita, aceitar acentos
+//- modal detalhes receita, atualizar comentarios e avaliacao
 
-- formularios, acrescentar validaçao de entradas
-- receitas mais assistidas, pegar videos do storage
-
-
-
-- modal detalhes receita, ajax para atualizar comentarios e avaliacao
 - modal detalhes receita, deletar e editar receita
 - modal detalhes receita, deletar comentario proprio autor
-- itens paginas principais, autor
-- busca
-- itens paginas principais, suporte video (Talvez);
+//- criar páginas das categorias

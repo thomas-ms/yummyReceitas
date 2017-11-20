@@ -9,26 +9,32 @@
     crossorigin="anonymous"></script>
   <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-  <link rel="stylesheet" href="./css/externo.css" ‌​>
+  <link rel="stylesheet" href="../css/externo.css" ‌​>
   <title>Login Yummy Receitas</title>
 </head>
 
 <body>
-  <header id="menuLogado" class="">
+  <header id="menuLogado" class="hide">
     <nav class="ui menu stackable">
       <header class="header item" id="logo">
         <i class="food icon"></i>
         <strong>YUMMY!</strong>
       </header>
-      <a class="item active item-menu" id="logoutBtn">Logado(a) como: <span id="nomeLogado"></span></a>
+      <div class="item item-menu" id="">Logado(a) como: <span id="nomeLogado"></span></div>
       <div class="item">
-        <button class="ui primary button" id="novaRec">Criar nova receita</button>
+        <button class="ui primary button teal" id="logoutBtn">Logout</button>
       </div>
       <div class="right menu">
         <div class="item">
-          <div class="ui icon input">
-            <input placeholder="Buscar..." type="text">
-            <i class="search icon"></i>
+          <button class="ui primary button" id="novaRec">Criar nova receita</button>
+        </div>
+        <div class="item">
+          <div class="ui search" id="buscaReceitas">
+            <div class="ui icon input">
+              <input id="buscaReceitasInput" class="prompt" type="text" placeholder="Buscar receitas...">
+              <i class="search icon"></i>
+            </div>
+            <div class="results"></div>
           </div>
         </div>
       </div>
@@ -41,9 +47,9 @@
         <i class="food icon"></i>
         <strong>YUMMY!</strong>
       </header>
-      <a class="item item-menu" href="inicial.html">Home</a>
-      <a class="item item-menu" href="login.html">Login</a>
-      <a class="item item-menu" href="cadastro.html">Registrar</a>
+      <a class="item item-menu" href="./inicial.html">Home</a>
+      <a class="item item-menu" href="./login.html">Login</a>
+      <a class="item item-menu" href="./cadastro.html">Registrar</a>
     </nav>
   </header>
 
@@ -82,8 +88,9 @@
     </div>
   </section>
 
-  //<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-  <script src="./js/externo.js"></script>
+  //
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+  <script src="../js/externo.js"></script>
 </body>
 
 </html>

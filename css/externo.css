@@ -22,6 +22,10 @@ body > .grid-login {
     background-color: #00b5ad;
 }
 
+#logoutBtn {
+    background-color: #00b5ad;
+}
+
 .button-icon.mini.teal.right.floated {
     font-size: 1rem;
     padding: 0.5em 0.5em;

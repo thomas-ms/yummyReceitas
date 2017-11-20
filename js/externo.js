@@ -15,11 +15,10 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         $('#menuDeslogado').addClass('hide');
         $('#menuLogado').removeClass('hide');
-        $('.ui.positive.message').removeClass('hidden');
         database.ref('users/' + user.uid).once('value').then(function (snapshot) {
             username = (snapshot.val() && snapshot.val().nome) || 'Anonymous';
-            $('#nomeLogado').text(username);
-            $('#nomeUserMssg').text(username);
+            $('#nomeLogado').text(' ' + username);
+            $('#nomeUserMssg').text(' ' + username);
         });
     } else {
         $('#menuLogado').addClass('hide');
@@ -30,7 +29,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 function writeUserData(id, nome, data, cidade, estado, telefone, email) {
     firebase.database().ref('users/' + id).set({
         id: id,
-        nome: nome,
+        nome: nome.toUpperCase(),
         dataNascimento: data,
         cidade: cidade,
         estado: estado,
@@ -47,11 +46,12 @@ $('#btnCadastrar').click(function () {
             var nome = $('#nomeCadastro').val();
             var data = $('#dataCadastro').val();
             var cidade = $('#cidadeCadastro').val();
-            var estado = $('#estadoCadastro').val();
+            var estado = $('#estadoCadastro').dropdown('get value');
             var telefone = $('#telefoneCadastro').val();
             var id = user.uid;
             writeUserData(id, nome, data, cidade, estado, telefone, email);
-            window.location.href = 'inicial.html';
+            localStorage.setItem('message', 'Cadastro efetuado com sucesso!');
+            window.location.href = '../views/inicial.html';
         })
         .catch(function (error) {
             // Handle Errors here.
@@ -75,9 +75,6 @@ function writeRecipeData(nome, descricao, imagens, video, categorias, tempo, coz
             img = img + 1;
         });
     }
-
-    if (video)
-        firebase.storage().ref('videos/' + key).put(video);
 
     var data = new Date(Date.now());
     var dataString = data.getDate() + '/' + (data.getMonth() + 1) + '/' + data.getFullYear();
@@ -108,6 +105,12 @@ function writeRecipeData(nome, descricao, imagens, video, categorias, tempo, coz
             value: true
         });
     });
+
+    if (video) {
+        firebase.database().ref('videos/' + key).set({
+            url: video
+        })
+    }
 }
 
 $('#btnLogin').click(function () {
@@ -116,11 +119,11 @@ $('#btnLogin').click(function () {
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(function (user) {
-            return window.location.href = 'inicial.html';
+            localStorage.setItem('message', 'Login efetuado com sucesso!');
+            window.location.href = '../views/inicial.html';
         })
         .catch(function (error) {
             var errorCode = error.code;
-            console.log(errorCode);
             if (errorCode === 'auth/wrong-password') {
                 alert('Senha incorreta, tente novamente!');
             }
@@ -167,7 +170,7 @@ $('#novaRec').click(function () {
             if (!imagens) {
                 imagens = null;
             }
-            var video = document.getElementById('videoReceita').files[0];
+            var video = $('#videoReceita').val();
             if (!video) {
                 video = null;
             }
@@ -193,6 +196,7 @@ $('#novaRec').click(function () {
             $('#porcoesReceita').val('');
             ingredientes = [];
             $('#instrucoesReceita').val('');
+            location.reload();
         }
     }).modal('show');
 });
@@ -229,7 +233,7 @@ $('#homeButton').one('mouseenter', function () {
 
 $('#logoutBtn').click(function () {
     firebase.auth().signOut().then(function () {
-        window.location = 'login.html';
+        window.location = '../views/login.html';
     }).catch(function (error) {
         console.log("Erro no logout");
     });
@@ -259,8 +263,25 @@ $('#modalNovaReceita').on('click', 'ul > li > i.link.remove.icon', function () {
     $(this).parent().remove();
 });
 
-function criarItems(snapshot, idDiv) {
-    var chavesCat = Object.keys(snapshot.val());
+function criarVideos() {
+    var videoSeg = $('#videoSeg')[0];
+    firebase.database().ref('videos/').once('value').then(function (snapshot) {
+        var lista = Object.values(snapshot.val()).slice(-5);
+        var seg = document.getElementById('videoSeg');
+        width = window.getComputedStyle(seg, null)['width'];
+        width = parseFloat(width);
+        lista.forEach(function (video, i) {
+            var iframe = document.createElement('iframe');
+            iframe.setAttribute('width', (width - 25) + 'px');
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('src', video.url.replace("watch?v=", "embed/"));
+            videoSeg.appendChild(iframe);
+        })
+    })
+}
+
+
+function criarItems(chavesCat, idDiv) {
     chavesCat.forEach(function (chave) {
         firebase.database().ref('recipes/' + chave).once('value').then(function (snapshot) {
             receita = snapshot.val();
@@ -315,8 +336,19 @@ function criarItems(snapshot, idDiv) {
 
             var span = document.createElement('span');
             span.setAttribute('class', 'data');
-            span.innerText = receita.dataCriacao;
+            span.innerText = 'Adcionada em: ' + receita.dataCriacao;
             div1.appendChild(span);
+
+            var divAutor = document.createElement('div');
+            divAutor.setAttribute('class', 'meta');
+            div.appendChild(divAutor);
+            firebase.database().ref('users/' + receita.autor).once('value').then(function (snapshot) {
+                var span = document.createElement('span');
+                span.setAttribute('class', 'autor');
+                span.innerText = 'Autor: ' + snapshot.val().nome;
+                divAutor.appendChild(span);
+            })
+
 
             var div1 = document.createElement('div');
             div1.setAttribute('class', 'description');
@@ -409,7 +441,6 @@ function criarModalDetalhes(idReceita) {
         imgContainer.setAttribute('class', 'ui medium image image-detalhes');
         div.appendChild(imgContainer);
 
-
         var div1 = document.createElement('div');
         div1.setAttribute('class', 'description');
         div.appendChild(div1);
@@ -445,6 +476,7 @@ function criarModalDetalhes(idReceita) {
 
         var p = document.createElement('p');
         p.setAttribute('class', 'meta avaliacao');
+        p.setAttribute('id', 'textoAvaliacao');
         p.innerText = texto;
         div2.appendChild(p);
 
@@ -460,29 +492,30 @@ function criarModalDetalhes(idReceita) {
         div3.setAttribute('class', 'two column row');
         div2.appendChild(div3);
 
-        var div4 = document.createElement('div');
-        div4.setAttribute('class', 'column');
-        div3.appendChild(div4);
+        var divMeta1 = document.createElement('div');
+        divMeta1.setAttribute('class', 'column');
+        div3.appendChild(divMeta1);
 
-        var div5 = document.createElement('div');
-        div5.setAttribute('class', 'meta');
-        div5.setAttribute('id', 'autorReceitaXML');
-        div5.setAttribute('itemprop', 'author');
-        //PEGAR NOME AUTOR
-        div5.innerText = 'Autor: ' + receita.autor;
-        div4.appendChild(div5);
+        firebase.database().ref('users/' + receita.autor).once('value').then(function (snapshot) {
+            var div5 = document.createElement('div');
+            div5.setAttribute('class', 'meta');
+            div5.setAttribute('id', 'autorReceitaXML');
+            div5.setAttribute('itemprop', 'author');
+            div5.innerText = 'Autor: ' + snapshot.val().nome;;
+            divMeta1.appendChild(div5);
+        })
 
         var div5 = document.createElement('div');
         div5.setAttribute('class', 'meta');
         div5.innerText = 'Criada em: ' + receita.dataCriacao;
-        div4.appendChild(div5);
+        divMeta1.appendChild(div5);
 
         var div5 = document.createElement('div');
         div5.setAttribute('class', 'meta');
         div5.setAttribute('id', 'tempoReceitaXML');
         div5.setAttribute('itemprop', 'cookTime');
         div5.innerText = 'Tempo de preparo: ' + receita.tempoReceita + ' min';
-        div4.appendChild(div5);
+        divMeta1.appendChild(div5);
 
         var div4 = document.createElement('div');
         div4.setAttribute('class', 'column');
@@ -490,7 +523,6 @@ function criarModalDetalhes(idReceita) {
 
         var div5 = document.createElement('div');
         div5.setAttribute('class', 'meta');
-
         div5.setAttribute('itemprop', 'recipeYield');
         div5.setAttribute('id', 'rendimentoReceitaXML');
         div5.innerText = 'Porções: ' + receita.porcoes;
@@ -525,13 +557,15 @@ function criarModalDetalhes(idReceita) {
         div2.innerText = 'Ingredientes';
         div1.appendChild(div2);
 
-        receita.ingredientes.forEach(function (ingrediente) {
-            var p = document.createElement('p');
-            p.setAttribute('class', 'ingrediente ingredienteXML');
-            p.setAttribute('itemprop', 'recipeIngredient');
-            p.innerText = ingrediente.nome + ' - ' + ingrediente.quantidade;
-            div1.appendChild(p);
-        });
+        if (receita.ingredientes) {
+            receita.ingredientes.forEach(function (ingrediente) {
+                var p = document.createElement('p');
+                p.setAttribute('class', 'ingrediente ingredienteXML');
+                p.setAttribute('itemprop', 'recipeIngredient');
+                p.innerText = ingrediente.nome + ' - ' + ingrediente.quantidade + ' ' + ingrediente.unidade;
+                div1.appendChild(p);
+            });
+        }
 
         var div2 = document.createElement('div');
         div2.setAttribute('class', 'ui dividing big header');
@@ -549,9 +583,9 @@ function criarModalDetalhes(idReceita) {
         div2.innerText = 'Comentários';
         div1.appendChild(div2);
 
-        var div2 = document.createElement('div');
-        div2.setAttribute('class', 'ui comments');
-        div1.appendChild(div2);
+        var div2comm = document.createElement('div');
+        div2comm.setAttribute('class', 'ui comments');
+        div1.appendChild(div2comm);
 
         firebase.database().ref('recipes/' + idReceita + '/comentarios').once('value').then(function (snapshot) {
             if (snapshot.val()) {
@@ -559,7 +593,7 @@ function criarModalDetalhes(idReceita) {
                 comentarios.forEach(function (comentario) {
                     var div3 = document.createElement('div');
                     div3.setAttribute('class', 'comment');
-                    div2.appendChild(div3);
+                    div2comm.appendChild(div3);
 
                     var div4 = document.createElement('div');
                     div4.setAttribute('class', 'content');
@@ -586,14 +620,14 @@ function criarModalDetalhes(idReceita) {
                     div4.appendChild(div5);
 
                     var hr = document.createElement('hr');
-                    div2.appendChild(hr);
+                    div2comm.appendChild(hr);
                 })
             }
 
             if (firebase.auth().currentUser) {
                 var form = document.createElement('form');
                 form.setAttribute('class', 'ui reply form');
-                div2.appendChild(form);
+                div2comm.appendChild(form);
 
                 var div3 = document.createElement('div');
                 div3.setAttribute('class', 'field');
@@ -640,22 +674,10 @@ function criarModalDetalhes(idReceita) {
                         $('.main-carousel').flickity('append', $cellElem);
                     })
                 }
-                $('.main-carousel').flickity('resize');
             } else {
                 var img = document.createElement('img');
                 img.setAttribute('src', 'http://www.techweez.com/wp-content/uploads/2017/07/NO-IMAGE.png');
                 imgContainer.appendChild(img);
-            }
-
-            if (receita.video) {
-                var br = document.createElement('br');
-                imgContainer.appendChild(hr);
-
-                firebase.storage().ref('videos/' + idReceita).getDownloadURL().then(function () {
-                    var iframe = document.createElement('iframe');
-                    iframe.setAttribute('src', url);
-                    imgContainer.appendChild(iframe);
-                })
             }
         });
 
@@ -673,24 +695,24 @@ function criarModalDetalhes(idReceita) {
         i.setAttribute('class', 'right chevron icon');
         div1.appendChild(i);
 
-        if (firebase.auth().currentUser.uid == receita.autor) {
-            var div1 = document.createElement('div');
-            div1.setAttribute('class', 'ui red button left floated');
-            div1.innerText = 'Deletar';
-            div.appendChild(div1);
+        // if (firebase.auth().currentUser.uid == receita.autor) {
+        //     var div1 = document.createElement('div');
+        //     div1.setAttribute('class', 'ui red button left floated');
+        //     div1.innerText = 'Deletar';
+        //     div.appendChild(div1);
 
-            var div1 = document.createElement('div');
-            div1.setAttribute('class', 'ui yellow button left floated');
-            div1.innerText = 'Editar';
-            div.appendChild(div1);
-        }
+        //     var div1 = document.createElement('div');
+        //     div1.setAttribute('class', 'ui yellow button left floated');
+        //     div1.innerText = 'Editar';
+        //     div.appendChild(div1);
+        // }
 
         $('.ui.rating').rating({
             onRate: function (rate) {
                 // //checar se existem avaliacoes
                 //     //checar se o usuario ja votou
-                //     //se nao, mandar para o bd o voto e incrementar quantidade
                 //     //se sim, excluir voto do usuario e colocar o novo
+                //     //se nao, mandar para o bd o voto e incrementar quantidade
                 // //mudar texto antes das estrelas
                 // //setar numero de estrelas votado
                 var usuario = firebase.auth().currentUser.uid;
@@ -703,6 +725,7 @@ function criarModalDetalhes(idReceita) {
                         } else {
                             estrelas = estrelas + rate;
                             quantidade = quantidade + 1;
+                            $('#modalDetalhes p#textoAvaliacao')[0].innerText = 'Avaliada por ' + quantidade + ' usuários: ';
                         }
                         firebase.database().ref('recipes/' + idReceita + '/avaliacoes/' + usuario).set({
                             estrelas: rate
@@ -730,6 +753,39 @@ function criarModalDetalhes(idReceita) {
                     autor: comentario.autor,
                     autorId: firebase.auth().currentUser.uid
                 });
+
+                var div3 = document.createElement('div');
+                div3.setAttribute('class', 'comment');
+                $('.ui.comments').prepend(div3);
+
+                var div4 = document.createElement('div');
+                div4.setAttribute('class', 'content');
+                div3.appendChild(div4);
+
+                var div5 = document.createElement('div');
+                div5.setAttribute('class', 'author');
+                div5.setAttribute('style', 'display : inline-block');
+                div5.innerText = comentario.autor;
+                div4.appendChild(div5);
+
+                var div5 = document.createElement('div');
+                div5.setAttribute('class', 'metadata');
+                div4.appendChild(div5);
+
+                var div6 = document.createElement('div');
+                div6.setAttribute('class', 'date');
+                div6.innerText = comentario.data;
+                div5.appendChild(div6);
+
+                var div5 = document.createElement('div');
+                div5.setAttribute('class', 'text');
+                div5.innerText = comentario.texto;
+                div4.appendChild(div5);
+
+                var hr = document.createElement('hr');
+                $(hr).insertAfter(div3);
+
+                $('#textComment').val('');
             })
         })
 
@@ -742,7 +798,25 @@ function criarModalDetalhes(idReceita) {
             onVisible: function () {
                 setTimeout(function () {
                     $('.main-carousel').flickity('resize');
-                }, 2000)
+                    if (receita.video) {
+                        var br = document.createElement('br');
+                        imgContainer.appendChild(br);
+                        var br = document.createElement('br');
+                        imgContainer.appendChild(br);
+                        var br = document.createElement('br');
+                        imgContainer.appendChild(br);
+
+                        var width = '270px';
+                        var element = document.getElementsByClassName('carousel-cell');
+                        if (element.length > 0)
+                            width = window.getComputedStyle(element[0], null)['width'];
+
+                        var iframe = document.createElement('iframe');
+                        iframe.setAttribute('src', receita.video.replace("watch?v=", "embed/"));
+                        iframe.setAttribute('width', width);
+                        imgContainer.appendChild(iframe);
+                    }
+                }, 1500)
             }
         }).modal('show');
     });
@@ -760,7 +834,6 @@ $('#modalDetalhes').on('click', '#buttonExportar', function () {
     var valorNut = $('#valorNutReceitaXML').text().substring(10);
     var avaliacao = $('#avaliacaoReceitaXML').attr('data-rating');
     var categorias = Array.from(document.getElementsByClassName('categoriaReceita'));
-    // console.log($('#imagemReceitaXML').attr('src'));
 
     var xmlDoc = document.implementation.createDocument(null, "cookbook");
     var root = xmlDoc.documentElement;
@@ -919,13 +992,51 @@ $('#modalDetalhes').on('click', '#buttonImprimir', function () {
 });
 
 $('.header.item#logo').click(function () {
-    window.location.href = 'home.html';
+    window.location.href = '../landing_page.html';
 });
 
 $('.message .close').on('click', function () {
     $(this)
         .closest('.message')
         .transition('fade');
+    setTimeout(function () {
+        $('.ui.positive.message').addClass('hidden');
+    }, 1000)
+    localStorage.removeItem('message');
 });
 
 $('.ui.dropdown').dropdown();
+
+$('#buscaReceitasInput').focus(function () {
+    firebase.auth().currentUser.getIdToken(true).then(function (idToken) {
+        return idToken;
+    }).catch(function (error) {
+        alert(error);
+    }).then(function (token) {
+        $('#buscaReceitas').search({
+            type: 'standard',
+            apiSettings: {
+                url: 'https://yummy-18825.firebaseio.com/recipes.json?auth=' + token,
+                onResponse: function (recipes) {
+                    var response = {
+                        results: []
+                    };
+                    Object.values(recipes).forEach(function (recipe) {
+                        if (recipe.nome.toLowerCase().includes($('#buscaReceitasInput').val().toLowerCase())) {
+                            response.results.push({
+                                title: recipe.nome,
+                                id: recipe.id
+                            });
+                        }
+                    });
+                    return response;
+                }
+            },
+            onSelect: function (result, response) {
+                criarModalDetalhes(result.id);
+            }
+        });
+    });
+})
+
+

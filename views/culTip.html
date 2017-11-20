@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-    <link rel="stylesheet" href="./css/externo.css" ‌​>
+    <link rel="stylesheet" href="../css/externo.css" ‌​>
     <title>Página Inicial YUMMY Receitas</title>
 </head>
 
@@ -19,15 +19,21 @@
                 <i class="food icon"></i>
                 <strong>YUMMY!</strong>
             </header>
-            <a class="item active item-menu" id="logoutBtn">Logado(a) como: <span id="nomeLogado"></span></a>
+            <div class="item item-menu" id="">Logado(a) como: <span id="nomeLogado"></span></div>
             <div class="item">
-                <button class="ui primary button" id="novaRec">Criar nova receita</button>
+                <button class="ui primary button teal" id="logoutBtn">Logout</button>
             </div>
             <div class="right menu">
                 <div class="item">
-                    <div class="ui icon input">
-                        <input placeholder="Buscar..." type="text">
-                        <i class="search icon"></i>
+                    <button class="ui primary button" id="novaRec">Criar nova receita</button>
+                </div>
+                <div class="item">
+                    <div class="ui search" id="buscaReceitas">
+                        <div class="ui icon input">
+                            <input id="buscaReceitasInput" class="prompt" type="text" placeholder="Buscar receitas...">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
                     </div>
                 </div>
             </div>
@@ -40,9 +46,9 @@
                 <i class="food icon"></i>
                 <strong>YUMMY!</strong>
             </header>
-            <a class="item item-menu" href="inicial.html">Home</a>
-            <a class="item item-menu" href="login.html">Login</a>
-            <a class="item item-menu" href="cadastro.html">Registrar</a>
+            <a class="item item-menu" href="../landing_page.html">Home</a>
+            <a class="item item-menu" href="./login.html">Login</a>
+            <a class="item item-menu" href="./cadastro.html">Registrar</a>
         </nav>
     </header>
 
@@ -62,22 +68,22 @@
             <!-- CONTEÚDO PRINCIPAL -->
 
             <nav class="ui pointing six item menu">
-                <a class="active item item-menu">
+                <a class="item item-menu" href="./inicial.html">
                         Home
                     </a>
-                <a class="item item-menu" href="carnes.html">
+                <a class="item item-menu" href="./carnes.html">
                         Carnes
                     </a>
-                <a class="item item-menu">
+                <a class="item item-menu" href="./massas.html">
                         Massas
                     </a>
-                <a class="item item-menu">
+                <a class="item item-menu" href="./sobremesas.html">
                         Sobremesas
                     </a>
-                <a class="item item-menu">
+                <a class="item item-menu active">
                         Culinárias Típicas
                     </a>
-                <a class="item item-menu">
+                <a class="item item-menu" href="./drinks.html">
                         Drinks
                     </a>
             </nav>
@@ -87,57 +93,11 @@
                     <h2>Receitas mais recentes</h2>
                 </header>
 
-                <section class="ui attached segment" id="scrolling-seg-principal">
-                    <header class="ui top attached secondary segment center aligned">
-                        Carnes
-                    </header>
+                <div class="ui attached segment" id="scrolling-seg-principal">
+                    <div class="ui divided items" id='itemsPagCat'>
 
-                    <div class="ui attached segment">
-                        <div class="ui divided items" id="itemsCarnes">
-
-                        </div>
                     </div>
-
-                    <header class="ui attached secondary segment center aligned">
-                        Massas
-                    </header>
-
-                    <div class="ui attached segment">
-                        <div class="ui divided items" id="itemsMassas">
-
-                        </div>
-                    </div>
-
-                    <header class="ui attached secondary segment center aligned">
-                        Sobremesas
-                    </header>
-
-                    <div class="ui attached segment">
-                        <div class="ui divided items" id="itemsSobremesas">
-
-                        </div>
-                    </div>
-
-                    <header class="ui attached secondary segment center aligned">
-                        Culinárias Típicas
-                    </header>
-
-                    <div class="ui attached segment">
-                        <div class="ui divided items" id="itemsCulTipicas">
-
-                        </div>
-                    </div>
-
-                    <header class="ui attached secondary segment center aligned">
-                        Drinks
-                    </header>
-
-                    <div class="ui attached segment">
-                        <div class="ui divided items" id="itemsDrinks">
-
-                        </div>
-                    </div>
-                </section>
+                </div>
 
             </section>
         </section>
@@ -147,13 +107,10 @@
             <div class="ui attached segments">
 
                 <div class="ui top attached segment center aligned">
-                    <h3>Receitas mais assistidas</h3>
+                    <h3>Últimos vídeos adicionados</h3>
                 </div>
 
-                <div class="ui attached segment videos">
-                    <iframe width="300" height="200" src="https://www.youtube.com/embed/D7d_i3E6GRs" frameborder="0" allowfullscreen></iframe>
-                    <iframe width="300" height="200" src="https://www.youtube.com/embed/TbXpgumVpsk" frameborder="0" allowfullscreen></iframe>
-                    <iframe width="300" height="200" src="https://www.youtube.com/embed/TbXpgumVpsk" frameborder="0" allowfullscreen></iframe>
+                <div class="ui attached segment videos" id="videoSeg">
                 </div>
             </div>
         </aside>
@@ -198,14 +155,14 @@
         <section class="ui center aligned grid">
             <div class="ui segment" id="segment-form-novaRec">
                 <div class="content">
-                    <form class="ui form">
+                    <form class="ui form novaRec">
                         <div class="field">
                             <label>Autor</label>
                             <p id='autorReceita'></p>
                         </div>
                         <div class="field">
                             <label>Nome da receita</label>
-                            <input type="text" placeholder="Nome da receita" id="nomeReceita" />
+                            <input type="text" placeholder="Nome da receita" id="nomeReceita" maxlength="50" />
                         </div>
                         <div class="field">
                             <label>Descrição</label>
@@ -223,7 +180,7 @@
                                 <div class="column">
                                     <div class="field">
                                         <label>Vídeo</label>
-                                        <input id="videoReceita" type="file" />
+                                        <input id="videoReceita" type="text" placeholder='Link para o video' />
                                     </div>
                                 </div>
                             </div>
@@ -246,7 +203,7 @@
                                 <div class="column">
                                     <div class="field">
                                         <label>Tempo de preparo</label>
-                                        <input id="tempoReceita" type="text" placeholder="Tempo de preparo em min" />
+                                        <input id="tempoReceita" type="text" placeholder="Tempo de preparo em minutos" />
                                     </div>
                                 </div>
                                 <div class="column">
@@ -276,7 +233,7 @@
                                 <div class="column">
                                     <div class="field">
                                         <label>Porções</label>
-                                        <input id="porcoesReceita" type="text" placeholder="Número de porções" />
+                                        <input id="porcoesReceita" type="text" placeholder="Serve quantas pessoas?" />
                                     </div>
                                 </div>
                             </div>
@@ -349,30 +306,102 @@
     <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
     <script src="http://cdn.jsdelivr.net/jquery.glide/1.0.6/jquery.glide.min.js"></script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-    <script src="./js/externo.js"></script>
+    <script src="../js/externo.js"></script>
     <script>
         $(function () {
-            firebase.database().ref('categorias/Carnes').once('value').then(function (snapshot) {
-                if (snapshot.val())
-                    criarItems(snapshot, 'itemsCarnes');
-            });
-            firebase.database().ref('categorias/Massas').once('value').then(function (snapshot) {
-                if (snapshot.val())
-                    criarItems(snapshot, 'itemsMassas');
-            });
-            firebase.database().ref('categorias/Sobremesas').once('value').then(function (snapshot) {
-                if (snapshot.val())
-                    criarItems(snapshot, 'itemsSobremesas');
-            });
             firebase.database().ref('categorias/Culinárias Típicas').once('value').then(function (snapshot) {
-                if (snapshot.val())
-                    criarItems(snapshot, 'itemsCulTipicas');
-            });
-            firebase.database().ref('categorias/Drinks').once('value').then(function (snapshot) {
-                if (snapshot.val())
-                    criarItems(snapshot, 'itemsDrinks');
+                var chavesCat = Object.keys(snapshot.val());
+                criarItems(chavesCat, 'itemsPagCat');
             });
         });
+
+        $('.form.novaRec').form({
+            on: 'blur',
+            inline: 'true',
+            fields: {
+                nomeReceita: {
+                    identifier: 'nomeReceita',
+                    rules: [
+                        {
+                            type: 'maxLength[50]',
+                            prompt: 'O nome da receita deve conter menos de 50 caracteres'
+                        },
+                        {
+                            type: 'regExp[/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\(\)!.,?:;# ]+$/]',
+                            prompt: 'O nome da receita deve conter apenas caracteres válidos de texto'
+                        }
+                    ]
+                },
+                descricaoReceita: {
+                    identifier: 'descricaoReceita',
+                    rules: [
+                        {
+                            type: 'maxLength[300]',
+                            prompt: 'A descrição da receita deve conter menos de 300 caracteres'
+                        },
+                        {
+                            type: 'regExp[/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\(\)!.,?:;# ]+$/]',
+                            prompt: 'A descrição da receita deve conter apenas caracteres válidos de texto'
+                        }
+                    ]
+                },
+                tempoReceita: {
+                    identifier: 'tempoReceita',
+                    rules: [
+                        {
+                            type: 'regExp[/^[0-9]*$/]',
+                            prompt: 'Forneça um número inteiro'
+                        }
+                    ]
+                },
+                instrucoesReceita: {
+                    identifier: 'instrucoesReceita',
+                    rules: [
+                        {
+                            type: 'maxLength[800]',
+                            prompt: 'As instruções da receita devem conter menos de 800 caracteres'
+                        },
+                        {
+                            type: 'regExp[/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\(\)!.,?:;# ]+$/]',
+                            prompt: 'As instruções da receita devem conter apenas caracteres válidos de texto'
+                        }
+                    ]
+                },
+                porcoesReceita: {
+                    identifier: 'porcoesReceita',
+                    rules: [
+                        {
+                            type: 'regExp[/^[0-9]*$/]',
+                            prompt: 'Forneça um número inteiro'
+                        }
+                    ]
+                },
+                nutricionalReceita: {
+                    identifier: 'nutricionalReceita',
+                    rules: [
+                        {
+                            type: 'regExp[/^[0-9]*$/]',
+                            prompt: 'Forneça um número inteiro'
+                        }
+                    ]
+                },
+            },
+        });
+
+        if (localStorage.message) {
+            $('.ui.positive.message').removeClass('hidden');
+            localStorage.removeItem('message');
+            setTimeout(function () {
+                $('.ui.positive.message')
+                    .closest('.message')
+                    .transition('fade');
+                setTimeout(function () {
+                    $('.ui.positive.message').addClass('hidden');
+                }, 1000)
+            }, 10000)
+        }
+
+        criarVideos();
     </script>
 
 </body>

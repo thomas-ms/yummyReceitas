@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>Cadastro Yummy Receitas</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" ‌​>
+    <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.css"
+        rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../css/externo.css" ‌​>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.js"></script>
+
+</head>
+
+<body>
+    <header id="menuLogado" class="">
+        <nav class="ui menu stackable">
+            <header class="header item" id="logo">
+                <i class="food icon"></i>
+                <strong>YUMMY!</strong>
+            </header>
+            <a class="item active item-menu" id="logoutBtn">Logado(a) como: <span id="nomeLogado"></span></a>
+            <div class="item">
+                <button class="ui primary button" id="novaRec">Criar nova receita</button>
+            </div>
+            <div class="right menu">
+                <div class="item">
+                    <div class="ui icon input">
+                        <input placeholder="Buscar..." type="text">
+                        <i class="search icon"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <header id="menuDeslogado" class="">
+        <nav class="ui menu stackable">
+            <header class="header item" id="logo">
+                <i class="food icon"></i>
+                <strong>YUMMY!</strong>
+            </header>
+            <a class="item item-menu" href="./inicial.html">Home</a>
+            <a class="item item-menu" href="./login.html">Login</a>
+            <a class="item item-menu" href="./cadastro.html">Registrar</a>
+        </nav>
+    </header>
+
+    <section class="ui center aligned grid">
+        <div class="ui segment" id="segment-form-cadastro">
+            <div class="ui form cadastro">
+                <div class="field">
+                    <label>Nome Completo</label>
+                    <input id="nomeCadastro" name="nome" placeholder="Nome Completo" type="text">
+                </div>
+                <div class="field">
+                    <label>Data de Nascimento</label>
+                    <div class="ui calendar datePicker">
+                        <input id="dataCadastro" name="data-nascimento" placeholder="Nascimento" type="text" id="datepicker">
+                    </div>
+                    <input type="hidden" id="dataCadastroForm">
+                </div>
+                <div class="field">
+                    <label>Cidade</label>
+                    <input id="cidadeCadastro" name="cidade" placeholder="Cidade" type="text">
+                </div>
+                <div class="field">
+                    <label>Estado</label>
+                    <div class="ui selection dropdown">
+                        <input id="estadoCadastro" name="estado-cadastro" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Selecione um</div>
+                        <div class="menu">
+                            <div class="item" data-value="AC">AC</div>
+                            <div class="item" data-value="AL">AL</div>
+                            <div class="item" data-value="AM">AM</div>
+                            <div class="item" data-value="AP">AP</div>
+                            <div class="item" data-value="BA">BA</div>
+                            <div class="item" data-value="CE">CE</div>
+                            <div class="item" data-value="DF">DF</div>
+                            <div class="item" data-value="ES">ES</div>
+                            <div class="item" data-value="GO">GO</div>
+                            <div class="item" data-value="MA">MA</div>
+                            <div class="item" data-value="MG">MG</div>
+                            <div class="item" data-value="MS">MS</div>
+                            <div class="item" data-value="MT">MT</div>
+                            <div class="item" data-value="PA">PA</div>
+                            <div class="item" data-value="PB">PB</div>
+                            <div class="item" data-value="PE">PE</div>
+                            <div class="item" data-value="PI">PI</div>
+                            <div class="item" data-value="PR">PR</div>
+                            <div class="item" data-value="RJ">RJ</div>
+                            <div class="item" data-value="RN">RN</div>
+                            <div class="item" data-value="RO">RO</div>
+                            <div class="item" data-value="RR">RR</div>
+                            <div class="item" data-value="RS">RS</div>
+                            <div class="item" data-value="SC">SC</div>
+                            <div class="item" data-value="SE">SE</div>
+                            <div class="item" data-value="SP">SP</div>
+                            <div class="item" data-value="TO">TO</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Telefone</label>
+                    <input id="telefoneCadastro" name="telefone" placeholder="Digite somente os números" type="text">
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    <input id="emailCadastro" name="email" placeholder="Email" type="email">
+                </div>
+                <div class="field">
+                    <label>Senha</label>
+                    <input name="senha" placeholder="Senha" type="password" id="senhaCadastro">
+                </div>
+                <div class="field">
+                    <label>Confirmar Senha</label>
+                    <input id="confirmaSenhaCadastro" name="confirmar" placeholder="Confirmar" type="password">
+                </div>
+                <div class="ui error message"></div>
+                <button class="ui primary button right floated" type="button" id="btnCadastrar">Cadastrar</button>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script src="../js/externo.js"></script>
+    <script>
+        $('.datePicker').calendar({
+            type: 'date',
+            startMode: 'year',
+            onChange: function (date, text, mode) {
+                $('#dataCadastroForm').val(date);
+            },
+            text: {
+                days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                today: 'Hoje',
+                now: 'Agora',
+                am: 'AM',
+                pm: 'PM'
+            },
+            monthFirst: false,
+        });
+
+        $.fn.form.settings.rules.maiorDe13 = function () {
+            var hoje = new Date(Date.now());
+            var data = new Date($('#dataCadastroForm').val())
+
+            if (hoje.getFullYear() - data.getFullYear() <= 13) {
+                console.log('1')
+                if (hoje.getFullYear() - data.getFullYear() == 13) {
+                    console.log('2')
+                    if (hoje.getMonth() <= data.getMonth()) {
+                        console.log('3')
+                        if (hoje.getMonth() == data.getMonth()) {
+                            if (hoje.getDate() < data.getDate()) {
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        };
+
+        $('.form.cadastro').form({
+            on: 'blur',
+            inline: 'true',
+            fields: {
+                nomeCadastro: {
+                    identifier: 'nomeCadastro',
+                    rules: [
+                        {
+                            type: 'regExp[/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/]',
+                            prompt: 'O nome completo deve conter somente letras'
+                        }
+                    ]
+                },
+                dataCadastro: {
+                    identifier: 'dataCadastro',
+                    rules: [
+                        {
+                            type: 'maiorDe13',
+                            prompt: 'Você precisa ser maior de 13 anos para completar seu cadastro'
+                        }
+                    ]
+                },
+                cidadeCadastro: {
+                    identifier: 'cidadeCadastro',
+                    rules: [
+                        {
+                            type: 'regExp[/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/]',
+                            prompt: 'O nome da cidade deve conter somente letras'
+                        }
+                    ]
+                },
+                estadoCadastro: {
+                    identifier: 'estadoCadastro',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Selecione um estado'
+                        }
+                    ]
+                },
+                telefoneCadastro: {
+                    identifier: 'telefoneCadastro',
+                    rules: [
+                        {
+                            type: 'regExp[/^[0-9]+$/]',
+                            prompt: 'Forneça um número de telefone válido'
+                        }
+                    ]
+                },
+                emailCadastro: {
+                    identifier: 'emailCadastro',
+                    rules: [
+                        {
+                            type: 'email',
+                            prompt: 'Forneça um email válido'
+                        }
+                    ]
+                },
+                senhaCadastro: {
+                    identifier: 'senhaCadastro',
+                    rules: [
+                        {
+                            type: 'regExp[/^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{8,}$/]',
+                            prompt: 'Sua senha deve conter no mínimo 8 caracters e entre eles: uma letra maíuscula, uma letra minúscula, um dígito e um caracter especial (!@#$%^&)'
+                        }
+                    ]
+                },
+                confirmaSenhaCadastro: {
+                    identifier: 'confirmaSenhaCadastro',
+                    rules: [
+                        {
+                            type: 'match[senhaCadastro]',
+                            prompt: 'As senhas digitadas não conferem'
+                        }
+                    ]
+                },
+            },
+            onValid: function () {
+                if (this[0].id == 'nomeCadastro') {
+                    $('#nomeCadastro').val($('#nomeCadastro').val().toUpperCase())
+                }
+                if (this[0].id == 'cidadeCadastro') {
+                    $('#cidadeCadastro').val($('#cidadeCadastro').val().toUpperCase())
+                }
+                if (this[0].id == 'telefoneCadastro') {
+                    var tel = $('#telefoneCadastro').val();
+                    var telForm = '(' + tel.substring(0, 2) + ') ' + tel.substring(2, 7) + ' - ' + tel.substring(7, );
+                    $('#telefoneCadastro').val(telForm);
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>
