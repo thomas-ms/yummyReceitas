@@ -72,26 +72,33 @@
 
     <body>
 
-        <header id="menuLogado" class="">
+        <header id="menuLogado" class="hide">
             <nav class="ui menu stackable">
                 <header class="header item" id="logo">
                     <i class="food icon"></i>
                     <strong>YUMMY!</strong>
                 </header>
-                <a class="item active item-menu" id="logoutBtn">Logado(a) como: <span id="nomeLogado"></span></a>
+                <div class="item item-menu" id="">Logado(a) como: <span id="nomeLogado"></span></div>
                 <div class="item">
-                    <button class="ui primary button" id="novaRec">Criar nova receita</button>
+                    <button class="ui primary button teal" id="logoutBtn">Logout</button>
                 </div>
                 <div class="right menu">
                     <div class="item">
-                        <div class="ui icon input">
-                            <input placeholder="Buscar..." type="text">
-                            <i class="search icon"></i>
+                        <button class="ui primary button" id="novaRec">Criar nova receita</button>
+                    </div>
+                    <div class="item">
+                        <div class="ui search" id="buscaReceitas">
+                            <div class="ui icon input">
+                                <input id="buscaReceitasInput" class="prompt" type="text" placeholder="Buscar receitas...">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results"></div>
                         </div>
                     </div>
                 </div>
             </nav>
         </header>
+
 
         <header id="menuDeslogado" class="">
             <nav class="ui menu stackable">
@@ -118,6 +125,37 @@
         </div>
 
         <script src="./js/externo.js"></script>
+        <script>
+            $('#homeButton').one('mouseenter', function () {
+                    setTimeout(function () {
+                        $('#spanTitulo').text('H');
+                        setTimeout(function () {
+                            $('#spanTitulo').text('HH');
+                            setTimeout(function () {
+                                $('#spanTitulo').text('HHH');
+                                setTimeout(function () {
+                                    $('#spanTitulo').text('HHH');
+                                    setTimeout(function () {
+                                        $('#spanTitulo').text('HHHH');
+                                        setTimeout(function () {
+                                            $('#spanTitulo').text('HHH');
+                                            setTimeout(function () {
+                                                $('#spanTitulo').text('HH');
+                                                setTimeout(function () {
+                                                    $('#spanTitulo').text('H');
+                                                    setTimeout(function () {
+                                                        $('#spanTitulo').text('');
+                                                    }, 200);
+                                                }, 200);
+                                            }, 200);
+                                        }, 200);
+                                    }, 200);
+                                }, 200);
+                            }, 200);
+                        }, 200);
+                    }, 200);
+                });
+        </script>
     </body>
 
     </html>

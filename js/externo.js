@@ -201,36 +201,6 @@ $('#novaRec').click(function () {
     }).modal('show');
 });
 
-$('#homeButton').one('mouseenter', function () {
-    setTimeout(function () {
-        $('#spanTitulo').text('H');
-        setTimeout(function () {
-            $('#spanTitulo').text('HH');
-            setTimeout(function () {
-                $('#spanTitulo').text('HHH');
-                setTimeout(function () {
-                    $('#spanTitulo').text('HHH');
-                    setTimeout(function () {
-                        $('#spanTitulo').text('HHHH');
-                        setTimeout(function () {
-                            $('#spanTitulo').text('HHH');
-                            setTimeout(function () {
-                                $('#spanTitulo').text('HH');
-                                setTimeout(function () {
-                                    $('#spanTitulo').text('H');
-                                    setTimeout(function () {
-                                        $('#spanTitulo').text('');
-                                    }, 200);
-                                }, 200);
-                            }, 200);
-                        }, 200);
-                    }, 200);
-                }, 200);
-            }, 200);
-        }, 200);
-    }, 200);
-});
-
 $('#logoutBtn').click(function () {
     firebase.auth().signOut().then(function () {
         window.location = '../views/login.html';
@@ -298,11 +268,13 @@ function criarItems(chavesCat, idDiv) {
                 firebase.storage().ref('images/' + receita.id + '/0').getDownloadURL().then(function (url) {
                     var img = document.createElement('img');
                     img.setAttribute('src', url);
+                    img.setAttribute('alt', receita.nome);
                     divImagem.appendChild(img);
                 })
             } else {
                 var img = document.createElement('img');
                 img.setAttribute('src', 'http://www.techweez.com/wp-content/uploads/2017/07/NO-IMAGE.png');
+                img.setAttribute('alt', 'Sem imagem');
                 divImagem.appendChild(img);
             }
 
@@ -312,11 +284,18 @@ function criarItems(chavesCat, idDiv) {
 
             var a = document.createElement('a');
             a.setAttribute('class', 'header');
+            a.setAttribute('id', 'tituloItem');
             a.innerText = receita.nome;
             div.appendChild(a);
 
+            var p = document.createElement('p');
+            p.setAttribute('class', 'meta avaliacao');
+            p.setAttribute('id', 'paragrafoItem');
+            p.innerText = 'Avaliada por ' + receita.avaliacao.quantidade + ' usuário(s):';
+            div.appendChild(p);
+
             var div1 = document.createElement('div');
-            div1.setAttribute('class', 'ui star rating right floated');
+            div1.setAttribute('class', 'ui star rating');
             var aval = receita.avaliacao.quantidade;
             if (aval != 0) {
                 aval = Math.floor(receita.avaliacao.estrelas / receita.avaliacao.quantidade);
@@ -324,11 +303,6 @@ function criarItems(chavesCat, idDiv) {
             div1.setAttribute('data-rating', aval);
             div1.setAttribute('data-max-rating', '5');
             div.appendChild(div1);
-
-            var p = document.createElement('p');
-            p.setAttribute('class', 'meta right floated avaliacao');
-            p.innerText = 'Avaliada por ' + receita.avaliacao.quantidade + ' usuário(s):';
-            div.appendChild(p);
 
             var div1 = document.createElement('div');
             div1.setAttribute('class', 'meta');
@@ -365,6 +339,8 @@ function criarItems(chavesCat, idDiv) {
             var div2 = document.createElement('div');
             div2.setAttribute('class', 'ui right floated primary button detalhes');
             div2.setAttribute('name', receita.id);
+            //div2.addEventListener('click', function () { criarModalDetalhes(receita.id) });
+            //console.log(receita.id);
             div2.innerText = 'Ver Detalhes';
             div1.appendChild(div2);
 
@@ -379,12 +355,13 @@ function criarItems(chavesCat, idDiv) {
                 div1.appendChild(div2);
             });
             $('.ui.rating').rating('disable');
-            $('.button.detalhes').click(function () {
-                criarModalDetalhes(this.getAttribute('name'));
-            })
         });
     })
 }
+
+$('#conteudoPrincipal').on('click', '.button.detalhes', function () {
+    criarModalDetalhes(this.getAttribute('name'));
+})
 
 function criarModalDetalhes(idReceita) {
     var texto = '';
@@ -585,6 +562,7 @@ function criarModalDetalhes(idReceita) {
 
         var div2comm = document.createElement('div');
         div2comm.setAttribute('class', 'ui comments');
+        div2comm.setAttribute('id', 'commentsDiv');
         div1.appendChild(div2comm);
 
         firebase.database().ref('recipes/' + idReceita + '/comentarios').once('value').then(function (snapshot) {
@@ -643,44 +621,45 @@ function criarModalDetalhes(idReceita) {
                 div3.innerText = 'Adicionar Comentário';
                 form.appendChild(div3);
             }
-
-            if (receita.imagens) {
-                var carousel = document.createElement('div');
-                carousel.setAttribute('class', 'main-carousel');
-                imgContainer.appendChild(carousel);
-
-                $('.main-carousel').flickity({
-                    // options
-                    cellAlign: 'left',
-                    contain: true,
-                    imagesLoaded: true,
-                    autoPlay: true,
-                    prevNextButtons: false
-                });
-
-                for (i = 0; i < receita.imagens; i++) {
-                    firebase.storage().ref('images/' + idReceita + '/' + i).getDownloadURL().then(function (url) {
-                        var carouselCell = document.createElement('div');
-                        carouselCell.setAttribute('class', 'carousel-cell');
-
-                        var img = document.createElement('img');
-                        img.setAttribute('src', url);
-                        img.setAttribute('class', 'imagemReceitaXML');
-                        img.setAttribute('itemprop', 'image');
-                        carouselCell.appendChild(img);
-
-                        var $cellElem = $('<div class="carousel-cell">' + carouselCell.innerHTML + '</div>');
-
-                        $('.main-carousel').flickity('append', $cellElem);
-                    })
-                }
-            } else {
-                var img = document.createElement('img');
-                img.setAttribute('src', 'http://www.techweez.com/wp-content/uploads/2017/07/NO-IMAGE.png');
-                imgContainer.appendChild(img);
-            }
         });
 
+        if (receita.imagens) {
+            var carousel = document.createElement('div');
+            carousel.setAttribute('class', 'main-carousel');
+            imgContainer.appendChild(carousel);
+
+            $('.main-carousel').flickity({
+                // options
+                cellAlign: 'left',
+                contain: true,
+                imagesLoaded: true,
+                autoPlay: true,
+                prevNextButtons: false
+            });
+
+            for (i = 0; i < receita.imagens; i++) {
+                firebase.storage().ref('images/' + idReceita + '/' + i).getDownloadURL().then(function (url) {
+                    var carouselCell = document.createElement('div');
+                    carouselCell.setAttribute('class', 'carousel-cell');
+
+                    var img = document.createElement('img');
+                    img.setAttribute('src', url);
+                    img.setAttribute('class', 'imagemReceitaXML');
+                    img.setAttribute('itemprop', 'image');
+                    img.setAttribute('alt', receita.nome);
+                    carouselCell.appendChild(img);
+
+                    var $cellElem = $('<div class="carousel-cell">' + carouselCell.innerHTML + '</div>');
+
+                    $('.main-carousel').flickity('append', $cellElem);
+                })
+            }
+        } else {
+            var img = document.createElement('img');
+            img.setAttribute('src', 'http://www.techweez.com/wp-content/uploads/2017/07/NO-IMAGE.png');
+            img.setAttribute('alt', 'sem imagem');
+            imgContainer.appendChild(img);
+        }
 
         var div = document.createElement('div');
         div.setAttribute('class', 'actions');
@@ -792,12 +771,16 @@ function criarModalDetalhes(idReceita) {
         $('#modalDetalhes').modal({
             onHidden: function () {
                 $('.ui.rating').rating('disable');
-                $(this).html('');
-                location.reload();
+                document.getElementById('modalDetalhes').innerHTML = '';
+                //location.reload();
             },
             onVisible: function () {
                 setTimeout(function () {
-                    $('.main-carousel').flickity('resize');
+                    if(receita.imagens != 0){
+                        $('.flickity-viewport').css('width', '270px');
+                        $('.main-carousel').flickity('resize');
+                    }
+                    
                     if (receita.video) {
                         var br = document.createElement('br');
                         imgContainer.appendChild(br);
@@ -1039,4 +1022,10 @@ $('#buscaReceitasInput').focus(function () {
     });
 })
 
-
+$(window).resize(function () {
+    if ($(window).width() <= 990 && $(window).width() >= 767){
+        $('.button.detalhes').addClass("mini");
+        
+    } 
+    else $('.button.detalhes').removeClass("mini");
+});
