@@ -772,7 +772,7 @@ function criarModalDetalhes(idReceita) {
             onHidden: function () {
                 $('.ui.rating').rating('disable');
                 document.getElementById('modalDetalhes').innerHTML = '';
-                //location.reload();
+                location.reload();
             },
             onVisible: function () {
                 setTimeout(function () {
